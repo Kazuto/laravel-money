@@ -1,29 +1,72 @@
 {
     "name": "kazuto/laravel-money",
     "description": "Money Cast and Facade for Laravel",
+    "keywords": [
+        "Kazuto",
+        "laravel",
+        "money"
+    ],
+    "homepage": "https://github.com/kazuto/laravel-money",
     "type": "library",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Kai Mayer",
+            "email": "mail@kazuto.de",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "ext-intl": "*",
+        "spatie/laravel-package-tools": "^1.4.3",
+        "illuminate/contracts": "^8.37"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.2",
+        "kazuto/php-cs-preset": "^1.0",
+        "nunomaduro/collision": "^5.3",
+        "orchestra/testbench": "^6.15",
+        "pestphp/pest": "^1.20",
+        "pestphp/pest-plugin-laravel": "^1.1",
+        "pestphp/pest-plugin-parallel": "^0.3.1"
+    },
     "autoload": {
         "psr-4": {
             "Kazuto\\LaravelMoney\\": "src/"
         }
     },
-    "authors": [
-        {
-            "name": "Kazuto",
-            "email": "mail@kazuto.de"
+    "autoload-dev": {
+        "psr-4": {
+            "Kazuto\\LaravelMoney\\Tests\\": "tests"
         }
-    ],
-    "require": {},
-    "require-dev": {
-        "kazuto/php-cs-preset": "^1.0",
-        "friendsofphp/php-cs-fixer": "^3.2"
     },
     "scripts": {
+        "test:run": [
+            "./vendor/bin/pest --no-coverage"
+        ],
+        "test:coverage": [
+            "XDEBUG_MODE=coverage ./vendor/bin/pest --coverage"
+        ],
         "fix": [
             "Composer\\Config::disableProcessTimeout",
             "@php vendor/bin/php-cs-fixer fix --diff --config=.php-cs-fixer.dist.php --allow-risky=yes",
             "@composer dump-autoload"
         ]
-    }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Kazuto\\LaravelMoney\\MoneyServiceProvider"
+            ],
+            "aliases": {
+                "Money": "Kazuto\\LaravelMoney\\MoneyFacade"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
