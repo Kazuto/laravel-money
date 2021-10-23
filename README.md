@@ -37,55 +37,46 @@ return [
 ## Usage
 
 ```php
-$money = Kazuto\Money::fromInt(524);
-echo $money->asFloat();
+Money::fromInt(524)->toInt();            // 524
+Money::fromInt(524)->toFloat();          // 5.24
+Money::fromInt(524)->toText();           // $5.24
+Money::fromInt(524)->toArray();
+// [
+//   'value' => 524,
+//   'formatted' => '$5.24',
+//   'currency' => 'USD',
+//   'symbol' => '$',
+// ]
 
-// 5.24
-```
+Money::fromInt(524)->add(123);           // 647
+Money::fromInt(524)->add(1.23);          // 647
+Money::fromInt(524)->substract(123);     // 401
+Money::fromInt(524)->substract(1.23);    // 401
+Money::fromInt(524)->multiply(2);        // 1048
+Money::fromInt(524)->multiply(1.23);     // 645 (rounded from 644.52)
+Money::fromInt(524)->divide(2);          // 262
+Money::fromInt(524)->divide(1.23);       // 426 (rounded from 426.01)
 
-```php
-$money = Kazuto\Money::fromInt(500);
-echo $money->asText();
-
-// $5.00
-```
-
-```php
-$money = Kazuto\Money::fromInt(524);
-echo $money->asArray();
-
+Money::fromFloat(5.24)->toInt();            // 524
+Money::fromFloat(5.24)->toFloat();          // 5.24
+Money::fromFloat(5.24)->toText();           // $5.24
+Money::fromFloat(5.24)->toArray();
 // [
 //   'value' => 524,
 //   'formatted' => '$5.24',
 //   'currency' => 'USD',
 //   'symbol' => '$',
 // ] 
-```
 
-```php
-$money = Kazuto\Money::fromFloat(5.24);
-echo $money->asText();
+Money::fromFloat(5.24)->add(123);           // 647
+Money::fromFloat(5.24)->add(1.23);          // 647
+Money::fromFloat(5.24)->substract(123);     // 401
+Money::fromFloat(5.24)->substract(1.23);    // 401
+Money::fromFloat(5.24)->multiply(2);        // 1048
+Money::fromFloat(5.24)->multiply(1.23);     // 645 (rounded from 644.52)
+Money::fromFloat(5.24)->divide(2);          // 262
+Money::fromFloat(5.24)->divide(1.23);       // 426 (rounded from 426.01)
 
-// $5.24
-```
-
-```php
-$money = Kazuto\Money::fromFloat(5.24);
-echo $money->asInt();
-
-// 524
-```
-
-```php
-$money = Kazuto\Money::fromFloat(5.24);
-echo $money->asArray();
-
-// [
-//   'value' => 524,
-//   'formatted' => '$5.24',
-//   'currency' => 'USD',
-//   'symbol' => '$',
-// ] 
 ```
 
 ## Testing

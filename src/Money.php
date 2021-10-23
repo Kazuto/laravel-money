@@ -38,31 +38,79 @@ class Money implements JsonSerializable
         return new self(round($value * 100));
     }
 
-    public function asInt(): int
+    public function toInt(): int
     {
         return $this->value;
     }
 
-    public function asFloat(): float
+    public function toFloat(): float
     {
-        return $this->asInt() / 100;
+        return $this->toInt() / 100;
     }
 
-    public function asText(): string
+    public function toText(): string
     {
-        return $this->numberFormatter->format($this->asFloat());
+        return $this->numberFormatter->format($this->toFloat());
     }
 
-    public function asArray(): array
+    public function toArray(): array
     {
         return $this->jsonSerialize();
+    }
+
+    public function add(self|float|int $value): self
+    {
+        if ($value instanceof self) {
+            $this->value += $value->toInt();
+        }
+
+        if (is_float($value)) {
+            $this->value += (int) ($value * 100);
+        }
+
+        if (is_int($value)) {
+            $this->value += $value;
+        }
+
+        return $this;
+    }
+
+    public function substract(self|float|int $value): self
+    {
+        if ($value instanceof self) {
+            $this->value -= $value->toInt();
+        }
+
+        if (is_float($value)) {
+            $this->value -= (int) ($value * 100);
+        }
+
+        if (is_int($value)) {
+            $this->value -= $value;
+        }
+
+        return $this;
+    }
+
+    public function multiply(int|float $value): self
+    {
+        $this->value = (int) round($this->value * $value);
+
+        return $this;
+    }
+
+    public function divide(int|float $value): self
+    {
+        $this->value = (int) round($this->value / $value);
+
+        return $this;
     }
 
     public function jsonSerialize(): array
     {
         return [
             'value' => $this->value,
-            'formatted' => $this->asText(),
+            'formatted' => $this->toText(),
             'currency' => $this->currencyCode,
             'symbol' => $this->currencySymbol,
         ];

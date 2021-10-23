@@ -16,6 +16,6 @@ class MoneyCast implements CastsAttributes
 
     public function set($model, string $key, $value, array $attributes): int
     {
-        return $value instanceof Money ? $value->asInt() : $value;
+        return $value instanceof Money ? $value->toInt() : $value;
     }
 }
