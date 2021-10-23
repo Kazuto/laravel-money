@@ -1,0 +1,29 @@
+{
+    "name": "kazuto/laravel-money",
+    "description": "Money Cast and Facade for Laravel",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Kazuto\\LaravelMoney\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kazuto",
+            "email": "mail@kazuto.de"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "kazuto/php-cs-preset": "^1.0",
+        "friendsofphp/php-cs-fixer": "^3.2"
+    },
+    "scripts": {
+        "fix": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php vendor/bin/php-cs-fixer fix --diff --config=.php-cs-fixer.dist.php --allow-risky=yes",
+            "@composer dump-autoload"
+        ]
+    }
+}
