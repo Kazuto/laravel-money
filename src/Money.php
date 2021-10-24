@@ -6,10 +6,13 @@ namespace Kazuto\LaravelMoney;
 
 use Illuminate\Support\Facades\Config;
 use JsonSerializable;
+use Kazuto\LaravelMoney\Traits\Comparable;
 use NumberFormatter;
 
 class Money implements JsonSerializable
 {
+    use Comparable;
+
     private int $value;
 
     private NumberFormatter|false $numberFormatter;
@@ -58,36 +61,32 @@ class Money implements JsonSerializable
         return $this->jsonSerialize();
     }
 
-    public function add(self|float|int $value): self
+    public function add(self|int|float $value): self
     {
         if ($value instanceof self) {
-            $this->value += $value->toInt();
+            $value = $value->toInt();
         }
 
         if (is_float($value)) {
-            $this->value += (int) ($value * 100);
+            $value = (int) ($value * 100);
         }
 
-        if (is_int($value)) {
-            $this->value += $value;
-        }
+        $this->value += $value;
 
         return $this;
     }
 
-    public function substract(self|float|int $value): self
+    public function substract(self|int|float $value): self
     {
         if ($value instanceof self) {
-            $this->value -= $value->toInt();
+            $value = $value->toInt();
         }
 
         if (is_float($value)) {
-            $this->value -= (int) ($value * 100);
+            $value = (int) ($value * 100);
         }
 
-        if (is_int($value)) {
-            $this->value -= $value;
-        }
+        $this->value -= $value;
 
         return $this;
     }
@@ -104,6 +103,31 @@ class Money implements JsonSerializable
         $this->value = (int) round($this->value / $value);
 
         return $this;
+    }
+
+    public function isEqualTo(self|int|float $value): bool
+    {
+        return $this->compare($value, '=');
+    }
+
+    public function isGreaterThan(self|int|float $value): bool
+    {
+        return $this->compare($value, '>');
+    }
+
+    public function isGreaterThanOrEqual(self|int|float $value): bool
+    {
+        return $this->compare($value, '>=');
+    }
+
+    public function isLessThan(self|int|float $value): bool
+    {
+        return $this->compare($value, '<');
+    }
+
+    public function isLessThanOrEqual(self|int|float $value): bool
+    {
+        return $this->compare($value, '<=');
     }
 
     public function jsonSerialize(): array
