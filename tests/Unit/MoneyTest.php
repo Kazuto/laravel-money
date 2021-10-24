@@ -302,3 +302,183 @@ test('divide() with integral on Money::fromFloat() returns updated Money object'
     [5.91, 209, 2.09],
     [7.77, 159, 1.59],
 ]);
+
+test('isEqualTo() compares values and returns corresponding bool', function ($firstValue, $secondValue, $expectedBool): void {
+    $money = Money::fromInt($firstValue);
+
+    $result = $money->isEqualTo($secondValue);
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+
+    $result = $money->isEqualTo((float) ($secondValue / 100));
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+
+    $result = $money->isEqualTo(Money::fromInt($secondValue));
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+
+    $result = $money->isEqualTo(Money::fromFloat((float) ($secondValue / 100)));
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+})->group('money')->with([
+    [200, 100, false],
+    [100, 200, false],
+    [-100, 200, false],
+    [100, 0, false],
+    [100, -2000, false],
+    [123, 123, true],
+    [7873, 7873, true],
+]);
+
+test('isGreaterThan() compares values and returns corresponding bool', function ($firstValue, $secondValue, $expectedBool): void {
+    $money = Money::fromInt($firstValue);
+
+    $result = $money->isGreaterThan($secondValue);
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+
+    $result = $money->isGreaterThan((float) ($secondValue / 100));
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+
+    $result = $money->isGreaterThan(Money::fromInt($secondValue));
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+
+    $result = $money->isGreaterThan(Money::fromFloat((float) ($secondValue / 100)));
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+})->group('money')->with([
+    [200, 100, true],
+    [100, 200, false],
+    [-100, 200, false],
+    [100, 0, true],
+    [100, -2000, true],
+    [123, 123, false],
+    [7873, 7873, false],
+]);
+
+test('isGreaterThanOrEqual() compares values and returns corresponding bool', function ($firstValue, $secondValue, $expectedBool): void {
+    $money = Money::fromInt($firstValue);
+
+    $result = $money->isGreaterThanOrEqual($secondValue);
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+
+    $result = $money->isGreaterThanOrEqual((float) ($secondValue / 100));
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+
+    $result = $money->isGreaterThanOrEqual(Money::fromInt($secondValue));
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+
+    $result = $money->isGreaterThanOrEqual(Money::fromFloat((float) ($secondValue / 100)));
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+})->group('money')->with([
+    [200, 100, true],
+    [100, 200, false],
+    [-100, 200, false],
+    [100, 0, true],
+    [100, -2000, true],
+    [123, 123, true],
+    [7873, 7873, true],
+]);
+
+test('isLessThan() compares values and returns corresponding bool', function ($firstValue, $secondValue, $expectedBool): void {
+    $money = Money::fromInt($firstValue);
+
+    $result = $money->isLessThan($secondValue);
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+
+    $result = $money->isLessThan((float) ($secondValue / 100));
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+
+    $result = $money->isLessThan(Money::fromInt($secondValue));
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+
+    $result = $money->isLessThan(Money::fromFloat((float) ($secondValue / 100)));
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+})->group('money')->with([
+    [200, 100, false],
+    [100, 200, true],
+    [-100, 200, true],
+    [100, 0, false],
+    [100, -2000, false],
+    [123, 123, false],
+    [7873, 7873, false],
+]);
+
+test('isLessThanOrEqual() compares values and returns corresponding bool', function ($firstValue, $secondValue, $expectedBool): void {
+    $money = Money::fromInt($firstValue);
+
+    $result = $money->isLessThanOrEqual($secondValue);
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+
+    $result = $money->isLessThanOrEqual((float) ($secondValue / 100));
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+
+    $result = $money->isLessThanOrEqual(Money::fromInt($secondValue));
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+
+    $result = $money->isLessThanOrEqual(Money::fromFloat((float) ($secondValue / 100)));
+
+    expect($result)
+        ->toBeBool()
+        ->toBe($expectedBool);
+})->group('money')->with([
+    [200, 100, false],
+    [100, 200, true],
+    [-100, 200, true],
+    [100, 0, false],
+    [100, -2000, false],
+    [123, 123, true],
+    [7873, 7873, true],
+]);

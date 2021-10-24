@@ -37,9 +37,10 @@ return [
 ## Usage
 
 ```php
-Money::fromInt(524)->toInt();            // 524
-Money::fromInt(524)->toFloat();          // 5.24
-Money::fromInt(524)->toText();           // $5.24
+// Base
+Money::fromInt(524)->toInt();   // 524
+Money::fromInt(524)->toFloat(); // 5.24
+Money::fromInt(524)->toText();  // $5.24
 Money::fromInt(524)->toArray();
 // [
 //   'value' => 524,
@@ -48,18 +49,9 @@ Money::fromInt(524)->toArray();
 //   'symbol' => '$',
 // ]
 
-Money::fromInt(524)->add(123);           // 647
-Money::fromInt(524)->add(1.23);          // 647
-Money::fromInt(524)->substract(123);     // 401
-Money::fromInt(524)->substract(1.23);    // 401
-Money::fromInt(524)->multiply(2);        // 1048
-Money::fromInt(524)->multiply(1.23);     // 645 (rounded from 644.52)
-Money::fromInt(524)->divide(2);          // 262
-Money::fromInt(524)->divide(1.23);       // 426 (rounded from 426.01)
-
-Money::fromFloat(5.24)->toInt();            // 524
-Money::fromFloat(5.24)->toFloat();          // 5.24
-Money::fromFloat(5.24)->toText();           // $5.24
+Money::fromFloat(5.24)->toInt();    // 524
+Money::fromFloat(5.24)->toFloat();  // 5.24
+Money::fromFloat(5.24)->toText();   // $5.24
 Money::fromFloat(5.24)->toArray();
 // [
 //   'value' => 524,
@@ -68,15 +60,60 @@ Money::fromFloat(5.24)->toArray();
 //   'symbol' => '$',
 // ] 
 
-Money::fromFloat(5.24)->add(123);           // 647
-Money::fromFloat(5.24)->add(1.23);          // 647
-Money::fromFloat(5.24)->substract(123);     // 401
-Money::fromFloat(5.24)->substract(1.23);    // 401
-Money::fromFloat(5.24)->multiply(2);        // 1048
-Money::fromFloat(5.24)->multiply(1.23);     // 645 (rounded from 644.52)
-Money::fromFloat(5.24)->divide(2);          // 262
-Money::fromFloat(5.24)->divide(1.23);       // 426 (rounded from 426.01)
 
+// Math
+
+// add(Money|int|float)
+Money::fromInt(524)->add(123);                    // 647
+Money::fromInt(524)->add(1.23);                   // 647
+Money::fromInt(524)->add(Money::fromFloat(1.23)); // 647
+
+// substract(Money|int|float)
+Money::fromInt(524)->substract(123);                    // 401
+Money::fromInt(524)->substract(1.23);                   // 401
+Money::fromInt(524)->substract(Money::fromFloat(1.23)); // 401
+
+// multiply(int|float)
+Money::fromInt(524)->multiply(2);     // 1048
+Money::fromInt(524)->multiply(1.23);  // 645 (rounded from 644.52)
+
+// divide(int|float)
+Money::fromInt(524)->divide(2);       // 262
+Money::fromInt(524)->divide(1.23);    // 426 (rounded from 426.01)
+
+// Comparisons
+
+// isEqualTo(Money|int|float)
+Money::fromInt(524)->isEqualTo(524);                    // true
+Money::fromInt(524)->isEqualTo(Money::fromFloat(5.24)); // true
+Money::fromInt(524)->isEqualTo(1.23);                   // false
+Money::fromInt(524)->isEqualTo(Money::fromInt(123));    // false
+
+// isGreaterThan(Money|int|float)
+Money::fromInt(524)->isGreaterThan(123);                    // true
+Money::fromInt(524)->isGreaterThan(Money::fromFloat(1.23)); // true
+Money::fromInt(524)->isGreaterThan(8.58);                   // false
+Money::fromInt(524)->isGreaterThan(Money::fromInt(858));    // false
+Money::fromInt(524)->isGreaterThan(524);                    // false
+Money::fromInt(524)->isGreaterThan(Money::fromFloat(5.24)); // false
+
+// isGreaterThanOrEqual(Money|int|float)
+Money::fromInt(524)->isGreaterThanOrEqual(8.58);                   // false
+Money::fromInt(524)->isGreaterThanOrEqual(524);                    // true
+Money::fromInt(524)->isGreaterThanOrEqual(Money::fromFloat(5.24)); // true
+
+// isLessThan(Money|int|float)
+Money::fromInt(524)->isLessThan(8.58);                   // true
+Money::fromInt(524)->isLessThan(Money::fromInt(858));    // true
+Money::fromInt(524)->isLessThan(123);                    // false
+Money::fromInt(524)->isLessThan(Money::fromFloat(1.23)); // false
+Money::fromInt(524)->isLessThan(524);                    // false
+Money::fromInt(524)->isLessThan(Money::fromFloat(5.24)); // false
+
+// isLessThanOrEqual(Money|int|float)
+Money::fromInt(524)->isLessThanOrEqual(2.24);                   // false
+Money::fromInt(524)->isLessThanOrEqual(524);                    // true
+Money::fromInt(524)->isLessThanOrEqual(Money::fromFloat(5.24)); // true
 ```
 
 ## Testing
