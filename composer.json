@@ -20,7 +20,7 @@
         "php": "^8.0",
         "ext-intl": "*",
         "spatie/laravel-package-tools": "^1.4.3",
-        "illuminate/contracts": "^8.37"
+        "illuminate/contracts": "^8.0|^9.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.2",
@@ -55,7 +55,10 @@
         ]
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "extra": {
         "laravel": {
